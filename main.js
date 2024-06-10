@@ -1,62 +1,63 @@
 
-function calcular(operacion, num1, num2) {
-    if (isNaN(num1) || isNaN(num2)) {
-        alert('Por favor, ingrese valores numéricos válidos.');
-        return;
-    }
+// Me olvidaba de usar un bojeto asique lo coloque asi jaja
+const juego_del_ahorcado = {
+    palabras: ["uruguay", "coderhouse", "basquetbol", "futbol", "celulares"],
+    palabra: "",
+    intentos: 6,
+    letras_adivinadas: [],
+    letras_incorrectas: [],
+    palabra_oculta: [],
 
-    let resultado;
-    if (operacion === '+') {
-        resultado = num1 + num2;
-    } else if (operacion === '-') {
-        resultado = num1 - num2;
-    } else if (operacion === '*') {
-        resultado = num1 * num2;
-    } else if (operacion === '/') {
-        if (num2 === 0) {
-            alert('No se puede dividir por cero.');
+    // Aca selecciono una palabra aleatoria
+    seleccionar_palabra() {
+        this.palabra = this.palabras[Math.floor(Math.random() * this.palabras.length)];
+        // aca secrea un array con la longitud de la palabre aleatoria colocando '_' para mostrar los espacios vacios y longitud de la palabra al usuario
+        this.palabra_oculta = Array(this.palabra.length).fill("_");
+    },
+
+    // Se muestra el estado actual del jueglo (aciertos, letras incorrectas, intentos restantes, etc)
+    mostrar_estado() {
+        alert(`Palabra: ${this.palabra_oculta.join(" ")}\nLetras incorrectas: ${this.letras_incorrectas.join(", ")}\nIntentos restantes: ${this.intentos}`);
+    },
+
+    // Forma para adivinar una letra
+    adivinar(letra) {
+        if (this.letras_adivinadas.includes(letra) || this.letras_incorrectas.includes(letra)) {
+            alert(`Ya intentaste con la letra ${letra}. Prueba con otra distinta.`);
             return;
         }
-        resultado = num1 / num2;
-    } 
 
-    alert('El resultado es: ' + resultado);
-}
-
-function obtenerNumero(mensaje) {
-    let valor;
-    do {
-        valor = parseFloat(prompt(mensaje));
-    } while (isNaN(valor));
-    return valor;
-}
-
-let repetir;
-do {
-    let operacion;
-    do {
-        operacion = prompt('Ingrese la operación a realizar (+, -, *, /)');
-        if (operacion !== '+' && operacion !== '-' && operacion !== '*' && operacion !== '/') {
-            alert('Operación no válida.');
+        if (this.palabra.includes(letra)) {
+            for (let i = 0; i < this.palabra.length; i++) {
+                if (this.palabra[i] === letra) {
+                    this.palabra_oculta[i] = letra;
+                }
+            }
+            this.letras_adivinadas.push(letra);
+        } else {
+            this.letras_incorrectas.push(letra);
+            this.intentos--;
         }
-    } while (operacion !== '+' && operacion !== '-' && operacion !== '*' && operacion !== '/');
 
-    let num1 = obtenerNumero('Ingrese el primer número');
-    let num2 = obtenerNumero('Ingrese el segundo número');
+        this.mostrar_estado();
 
-    calcular(operacion, num1, num2);
+        // Vemos si el jugador gana o pierde
+        if (this.palabra_oculta.join("") === this.palabra) {
+            alert("¡Felicidades! Has ganado.");
+        } else if (this.intentos === 0) {
+            alert(`Perdiste. La palabra era "${this.palabra}".`);
+        }
+    }
+};
 
-    repetir = confirm('¿Quieres realizar otra operación?');
-} while (repetir);
+// comienza el juego
+juego_del_ahorcado.seleccionar_palabra();
+juego_del_ahorcado.mostrar_estado();
 
-
-
-
-
-
-
-
-
+// Forma de jugar
+while (juego_del_ahorcado.intentos > 0 && juego_del_ahorcado.palabra_oculta.join("") !== juego_del_ahorcado.palabra) {
+    juego_del_ahorcado.adivinar(prompt("Adivina una letra:"));
+}
 
 
 
