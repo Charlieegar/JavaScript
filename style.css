@@ -1,8 +1,69 @@
-body{
-    background-color: black;
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+    margin: 0;
 }
-h1{
+
+h1 {
     color: white;
+    margin-bottom: 70px;
+    font-size: 25px;
+}
+h2{
+    color: white;
+    font-size: 40px;
+}
+
+#juego {
     text-align: center;
-    font-size: 100px;
+    background: rgb(64, 0, 0);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+#palabra {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#letras {
+    margin-bottom: 20px;
+}
+
+.letra {
+    color: white;
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 24px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.letra.desactivado {
+    color: grey;
+    cursor: not-allowed;
+}
+
+#intentos_restantes {
+    color: white;
+}
+
+#mensaje {
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+    height: 24px;
+}
+
+#reinicio {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }

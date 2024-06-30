@@ -1,71 +1,81 @@
 
 // Me olvidaba de usar un bojeto asique lo coloque asi jaja
-const juego_del_ahorcado = {
-    palabras: ["uruguay", "coderhouse", "basquetbol", "futbol", "celulares"],
-    palabra: "",
+let juego_del_ahorcado = {
+    palabras: [`uruguay`, `coderhouse`, `basquetbol`, `futbol`, `celulares`, `computadora`, `america`],
+    palabra: ``,
     intentos: 6,
     letras_adivinadas: [],
     letras_incorrectas: [],
     palabra_oculta: [],
-
-    // Aca selecciono una palabra aleatoria
-    seleccionar_palabra() {
-        this.palabra = this.palabras[Math.floor(Math.random() * this.palabras.length)];
-        // aca secrea un array con la longitud de la palabre aleatoria colocando '_' para mostrar los espacios vacios y longitud de la palabra al usuario
-        this.palabra_oculta = Array(this.palabra.length).fill("_");
-    },
-
-    // Se muestra el estado actual del jueglo (aciertos, letras incorrectas, intentos restantes, etc)
-    mostrar_estado() {
-        alert(`Palabra: ${this.palabra_oculta.join(" ")}\nLetras incorrectas: ${this.letras_incorrectas.join(", ")}\nIntentos restantes: ${this.intentos}`);
-    },
-
-    // Forma para adivinar una letra
-    adivinar(letra) {
-        if (this.letras_adivinadas.includes(letra) || this.letras_incorrectas.includes(letra)) {
-            alert(`Ya intentaste con la letra ${letra}. Prueba con otra distinta.`);
-            return;
-        }
-
-        if (this.palabra.includes(letra)) {
-            for (let i = 0; i < this.palabra.length; i++) {
-                if (this.palabra[i] === letra) {
-                    this.palabra_oculta[i] = letra;
-                }
-            }
-            this.letras_adivinadas.push(letra);
-        } else {
-            this.letras_incorrectas.push(letra);
-            this.intentos--;
-        }
-
-        this.mostrar_estado();
-
-        // Vemos si el jugador gana o pierde
-        if (this.palabra_oculta.join("") === this.palabra) {
-            alert("¡Felicidades! Has ganado.");
-        } else if (this.intentos === 0) {
-            alert(`Perdiste. La palabra era "${this.palabra}".`);
-        }
-    }
 };
 
-// comienza el juego
-juego_del_ahorcado.seleccionar_palabra();
-juego_del_ahorcado.mostrar_estado();
+let contenedor_palabra = document.getElementById(`palabra`);
+let contenedor_letras = document.getElementById(`letras`);
+let contenedor_intentos = document.getElementById(`intentos_restantes`);
+let contenedor_mensaje = document.getElementById(`mensaje`);
+let boton = document.getElementById(`reinicio`);
 
-// Forma de jugar
-while (juego_del_ahorcado.intentos > 0 && juego_del_ahorcado.palabra_oculta.join("") !== juego_del_ahorcado.palabra) {
-    juego_del_ahorcado.adivinar(prompt("Adivina una letra:"));
+function inicio_juego() {
+    juego_del_ahorcado.palabra = juego_del_ahorcado.palabras[Math.floor(Math.random() * juego_del_ahorcado.palabras.length)]
+    juego_del_ahorcado.letras_adivinadas = [];
+    juego_del_ahorcado.intentos = 6;
+    contenedor_intentos.textContent = `Intentos restantes: ${juego_del_ahorcado.intentos}`
+    contenedor_mensaje.textContent = ``;
+    mostrar_palabra()
+    botones_letras()
 }
 
+//Aca se separa la palabra por letras,y se muestra con "_"
+function mostrar_palabra() {
+    contenedor_palabra.textContent = juego_del_ahorcado.palabra.split(``).map(letra => (juego_del_ahorcado.letras_adivinadas.includes(letra) ? letra : `_`)).join(` `)
+}
 
+function botones_letras() {
+    contenedor_letras.innerHTML = ``;
+    `abcdefghijklmnñopqrstuvwxyz`.split(``).forEach(letra => {
+        let cada_letra = document.createElement(`span`)
+        cada_letra.textContent = letra
+        cada_letra.classList.add(`letra`)
+        cada_letra.addEventListener(`click`, () => letra_adivinada(letra))
+        contenedor_letras.appendChild(cada_letra)
 
+    })
+}
 
+function letra_adivinada(letra) {
+    if (juego_del_ahorcado.letras_adivinadas.includes(letra) || juego_del_ahorcado.intentos === 0) {
+        return;
 
+    }
+    juego_del_ahorcado.letras_adivinadas.push(letra)
 
+    if (juego_del_ahorcado.palabra.includes(letra)) {
+        mostrar_palabra();
+        comprobar_si_gana();
+    } else {
+        juego_del_ahorcado.intentos--;
+        contenedor_intentos.textContent = `Intentos restantes: ${juego_del_ahorcado.intentos}`
+        if (juego_del_ahorcado.intentos === 0) {
+            contenedor_mensaje.textContent = `Perdiste, la palabra era: ${juego_del_ahorcado.palabra}`
+            juego_termina();
+        }
+    }
+}
 
+function comprobar_si_gana() {
+    if (juego_del_ahorcado.palabra.split(``).every(letra => juego_del_ahorcado.letras_adivinadas.includes(letra))) {
+        contenedor_mensaje.textContent = `Felicitaciones has ganado! Ahora el profe me aprueba`
+        juego_termina();
+    }
+}
 
+function juego_termina() {
+    document.querySelectorAll(`.letra`).forEach(letra => letra.classList.add(`desactivado`));
+}
+
+boton.addEventListener(`click`, inicio_juego)
+
+inicio_juego();
 
 
 
