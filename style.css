@@ -1,3 +1,44 @@
+#index {
+    background: rgb(64, 0, 0);
+    width: 600px;
+    height: 450px;
+}
+#logueo{
+    color: white;
+    margin-bottom: 70px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+#login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 10 white;
+    margin: 20px;
+}
+
+label {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+    height: 24px;
+}
+input {
+    width: 400px;
+    height: 20px;
+    margin-top:10px;
+    margin-left: 80px;
+}
+#enviar {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-left: 225px;
+    width: 100px;
+    height: 30px;
+}
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -54,6 +95,9 @@ h2{
 #intentos_restantes {
     color: white;
 }
+#letras_incorrectas {
+    color: white;
+}
 
 #mensaje {
     color: white;
@@ -66,4 +110,34 @@ h2{
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.toastify {
+    background: linear-gradient(135deg, #690202, #6c1c1c);
+}
+
+h3 {
+    color: white;
+}
+#tabla {
+    margin-top: 30px;
+    width: 400px;
+}
+
+#posiciones {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#posiciones th, #posiciones td {
+    background-color: white;
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+    
+
+}
+
+#posiciones th {
+    background-color: #f2f2f2;
 }

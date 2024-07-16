@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Juego del Ahorcado</title>
+    <title>Formulario de Login</title>
 </head>
 <body>
-    <h1>Tercer pre-entrega!!!!</h1>
-    <div id="juego">
-        <h2>Juego del Ahorcado</h2>
-        <p id="palabra"></p>
-        <p id="letras"></p>
-        <p id="intentos_restantes"></p>
-        <p id="mensaje"></p>
-        <button id="reinicio">Reiniciar Juego</button>
+    <div id="index">
+        <h1 id="logueo">Logueate!!!</h1> 
+        <form id="login">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Escribe aqui tu nombre">
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required placeholder="Escribe aqui tu apellido">
+            <button id="enviar" type="submit">Enviar</button>
+        </form>
     </div>
-    <script src="./main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
